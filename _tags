@@ -7,6 +7,7 @@ true: package(bytes), package(cstruct)
 <src/*.ml{,i}>: package(zarith), package(sexplib), package(ppx_sexp_conv)
 <src/*.cm{x,o}> and not <src/nocrypto.cmx>: for-pack(Nocrypto)
 <src/*.cm{,x}a>: link_stubs(src/libnocrypto_stubs)
+<src/nocrypto.cm{x,o}>: package(ppx_sexp_conv)
 
 <unix>: include
 <unix/*.ml{,i}>: package(unix), package(bytes)
@@ -19,7 +20,7 @@ true: package(bytes), package(cstruct)
 
 <**/*.c>: ccopt(--std=c99 -Wall -Wextra -O3)
 
-<bench/*>: use_nocrypto, package(zarith), package(cstruct.unix)
-<tests/*>: use_nocrypto, package(zarith), package(oUnit)
+<bench/*>: use_nocrypto, package(zarith), package(ppx_sexp_conv)
+<tests/*>: use_nocrypto, package(zarith), package(ppx_sexp_conv), package(oUnit)
 
 <rondom>: -traverse
